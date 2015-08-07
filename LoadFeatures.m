@@ -16,15 +16,15 @@ function [ features ] = LoadFeatures( path )
 % Date: 2015/08/07
 %
 
-flen=1000;
-N=10000;
-tot=50;
+featurelength=1000;
+N=1200;
+totsets=50;
 
-features(tot).wnids='';
-features(tot).data=[];
-for i=1:tot
+features(totsets).wnids='';
+features(totsets).data=[];
+for i=1:totsets
     features(i).wnids=['test' int2str(i)];
-    features(i).data=rand(N,flen);
+    features(i).data=rand(N,featurelength);
 end
 
 
