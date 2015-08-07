@@ -18,7 +18,7 @@ function [ features ] = LoadFeatures( path )
 
 featurelength=1000;
 N=1200;
-totsets=50;
+totsets=100;
 
 features(totsets).wnids='';
 features(totsets).data=[];
