@@ -1,11 +1,21 @@
 clear all;
+fprintf('load data...\n');
+tic
 f=LoadFeatures();
-
+toc
+fprintf('load finished.\n')
 data={f.data};
 
-dmean=cell2mat(cellfun(@mean,data,'UniformOutput', false)');
+centers=cell2mat(cellfun(@mean,data,'UniformOutput', false)');
 tic
-dvar=cellfun(@(x) sum(var(x,1)),data);
+mean_dist2centers=cellfun(@(x) sum(var(x,1)),data);
 toc
 
-distances=pdist(dmean);
+figure;
+histogram(mean_dist2centers);
+title('mean dist square to centers');
+
+dist_betweenclasses=pdist(centers);
+figure;
+histogram(dist_betweenclasses);
+title('dist between classes');

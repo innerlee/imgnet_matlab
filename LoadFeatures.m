@@ -24,7 +24,7 @@ features(totsets).wnids='';
 features(totsets).data=[];
 for i=1:totsets
     features(i).wnids=['test' int2str(i)];
-    features(i).data=rand(N,featurelength);
+    features(i).data=randi([1,3])* rand(N,featurelength);
 end
 
 
