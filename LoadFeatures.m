@@ -10,14 +10,22 @@ function [ features ] = LoadFeatures( path )
 %  Returns:
 %    features: a list of cells with properties
 %       .name: wnid, ie, filenames.
-%       .data: features vectors in colums. 
-%                 Note this is different from files.
+%       .data: features vectors in rows. 
 %       
 % Author: lizz
 % Date: 2015/08/07
 %
 
+flen=1000;
+N=10000;
+tot=50;
 
+features(tot).wnids='';
+features(tot).data=[];
+for i=1:tot
+    features(i).wnids=['test' int2str(i)];
+    features(i).data=rand(N,flen);
+end
 
 
 end
