@@ -1,4 +1,4 @@
-function [ features ] = LoadFeatures( )
+function [ features, wnids, imgfiles ] = LoadFeatures( maxnum )
 %LoadFeatures Load imagenet fetures from .txt files in a folder.
 %
 %  Inputs:
@@ -8,26 +8,44 @@ function [ features ] = LoadFeatures( )
 %     Use space as delimators.
 %
 %  Returns:
-%    features: a list of cells with properties
-%       .name: wnid, ie, filenames.
-%       .data: features vectors in rows. 
+%    features: a list of cells with feature matrices, one cell for a wnid
+%    wnids: list of filenames
+%    imgfiles: list of cells contains img filename for each feature vector
 %       
 % Author: lizz
 % Date: 2015/08/07
 %
 
-path='D:\imagenet_features_1024_dims\imagenet_features';
-
-featurelength=1000;
-N=1200;
-totsets=100;
-
-features(totsets).wnids='';
-features(totsets).data=[];
-for i=1:totsets
-    features(i).wnids=['test' int2str(i)];
-    features(i).data=randi([1,3])* rand(N,featurelength);
+if nargin==0
+    maxnum=inf;
 end
+
+path='D:\imagenet_features_1024_dims\imagenet_features\';
+
+all_files=dir(path);
+all_names={all_files.name};
+all_bits=[all_files.isdir];
+wnids=all_names(all_bits==0);
+
+N=min(maxnum, length(wnids));
+
+features{N}=0;
+imgfiles{N}=0;
+
+for i=1:N
+	[ fet, img ] = LoadFeatureFromFile( [path wnids{i}] );
+    features{i}=fet;
+    imgfiles(i)=img;
+    fprintf([int2str(i) ': loading ' wnids{i} '\n']);
+%     fileID = fopen([path wnids{i}]);
+%     data{i} = textscan(fileID,['%s' repmat(' %f', 1,1024)]);
+%     fclose(fileID);
+%     features{i}=cell2mat(data{i}(2:end));
+%     imgfiles(i)=data{i}(1);
+%     
+%     fprintf([int2str(i) ': loading ' wnids{i} '\n']);
+end
+
 
 
 end

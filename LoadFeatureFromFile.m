@@ -1,4 +1,4 @@
-function [ features, wnids, imgfiles  ] = LoadFeatures_Mock( )
+function [ features, imgfiles ] = LoadFeatureFromFile( file )
 %LoadFeatures Load imagenet fetures from .txt files in a folder.
 %
 %  Inputs:
@@ -16,19 +16,11 @@ function [ features, wnids, imgfiles  ] = LoadFeatures_Mock( )
 % Date: 2015/08/07
 %
 
-featurelength=1000;
-N=1200;
-totsets=100;
-
-features{totsets}=0;
-wnids{totsets}=0;
-imgfiles=[];
-
-for i=1:totsets
-    wnids{i}=['test' int2str(i)];
-    features{i}=randi([1,3])* rand(N,featurelength);
-end
-
+fileID = fopen(file);
+data = textscan(fileID,['%s' repmat(' %f', 1,1024)]);
+fclose(fileID);
+features=cell2mat(data(2:end));
+imgfiles=data(1);
 
 end
 
