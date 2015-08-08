@@ -1,4 +1,4 @@
-function [ features ] = LoadFeatures( path )
+function [ features ] = LoadFeatures( )
 %LoadFeatures Load imagenet fetures from .txt files in a folder.
 %
 %  Inputs:
@@ -15,6 +15,8 @@ function [ features ] = LoadFeatures( path )
 % Author: lizz
 % Date: 2015/08/07
 %
+
+path='D:\imagenet_features_1024_dims\imagenet_features';
 
 featurelength=1000;
 N=1200;
