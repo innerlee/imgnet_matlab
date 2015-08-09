@@ -1,4 +1,4 @@
-function [ centers,  dist2centers, dist2classes, grid ] = GeneralAnalysis( features )
+function [ centers,  dist2centers, dist2classes, grids, ind ] = GeneralAnalysis( features, issort )
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -10,39 +10,77 @@ tic
 dist2centers=cellfun(@(x) sum(var(x,1)),features);
 toc
 
+ind=[];
+if nargin ==2 && issort
+    [dist2centers, ind]=sort(dist2centers);
+    centers=centers(ind,:);
+end
+
 dist2classes=pdist(centers).^2;
-grid=squareform(dist2classes)+diag(dist2centers);
+grids=squareform(dist2classes);%+diag(dist2centers);
 
-say 'drawing...'
+say2 'drawing...'
 
+if ~issort
+    figure;
+    bar(dist2centers);
+    fig = gcf;
+    ax = fig.CurrentAxes;
+    ax.XLim=[0 length(dist2centers)+1];
+    title('mean dist square to centers');
+end
+
+%%
 figure;
-bar(dist2centers);
+b=bar3(grids);
+hold on;
+c=bar3(diag(dist2centers));
+
+for k = 1:length(b)
+    zdata = b(k).ZData;
+    b(k).CData = zdata;
+    b(k).FaceColor = 'interp';
+    %b(k).FaceAlpha=.5;
+end
+for k = 1:length(c)
+    c(k).FaceColor = 'yellow';
+end
+
 fig = gcf;
 ax = fig.CurrentAxes;
-ax.XLim=[0 length(dist2centers)+1];
-title('mean dist square to centers');
-
-figure;
-bar(dist2classes);
-fig = gcf;
-ax = fig.CurrentAxes;
-ax.XLim=[0 length(dist2classes)+1];
-title('dist between classes');
-
-figure;
-b=bar3(grid);
-fig = gcf;
-ax = fig.CurrentAxes;
-[w, h]=size(grid);
+[w, h]=size(grids);
 ax.XLim=[0 w+1];
 ax.YLim=[0 h+1];
+title('distance squares');
+
+%%
+figure;
+dist=mean(dist2centers);
+grid2=grids;
+grid2(grids<dist)=0;
+c=bar3(diag(dist2centers));
+hold on;
+b=bar3(grid2);
+
 for k = 1:length(b)
     zdata = b(k).ZData;
     b(k).CData = zdata;
     b(k).FaceColor = 'interp';
 end
-title('distance squares');
+for k = 1:length(c)
+    if max(c(k).ZData(:))>0
+        c(k).FaceColor = 'yellow';
+    end
+end
 
+fig = gcf;
+ax = fig.CurrentAxes;
+[w, h]=size(grids);
+ax.XLim=[0 w+1];
+ax.YLim=[0 h+1];
+title('distance squares larger than average');
+
+%%
 figure;
 h=histogram(dist2centers,'Normalization', 'probability');
 h.FaceAlpha = 0.5;
@@ -51,6 +89,21 @@ h=histogram(dist2classes,'Normalization', 'probability');
 h.FaceAlpha = 0.5;
 legend('dist to centers', 'dist between classes');
 title('statistics of distances');
+
+[sdc1, i1]=sort(dist2centers);
+[sdc2, i2]=sort(dist2classes);
+
+%%
+figure;
+hold on;
+bar((1:length(i1))/length(i1),sdc1,'r');
+bar((1:length(i2))/length(i2),sdc2,'black');
+legend('dist to centers', 'dist between classes');
+title('list of distances');
+ylabel('distances');
+xlim([0,1.01]);
+plot((1:length(i1))/length(i1),sdc1,'r');
+grid on;
 
 end
 

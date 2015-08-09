@@ -1,3 +1,5 @@
+%clear newdata;
+
 if exist('newdata','var')
     say 'using existed data. related variables: features, wnids, imgfiles.'
 else
@@ -9,5 +11,11 @@ else
     say 'load finished.'
 end
 
-[ centers,  dist2centers, dist2classes, grid ] = GeneralAnalysis( features );
+issort=true;
 
+[ centers,  dist2centers, dist2classes, grids, ind ] = GeneralAnalysis( features, issort );
+
+if issort
+    wnids=wnids(ind);
+    imgfiles=imgfiles(ind);
+end
