@@ -19,8 +19,8 @@ else
     ind=1:length(dist2centers);
 end
 
-dist2classes=pdist(centers).^2;
-grids=squareform(dist2classes);%+diag(dist2centers);
+dist2classes=pdist(centers).^2; 
+grids=squareform(dist2classes); %+diag(dist2centers);
 
 say2 'drawing...'
 
@@ -56,32 +56,32 @@ ax.XLim=[0 w+1];
 ax.YLim=[0 h+1];
 title('distance squares');
 
-%%
-figure;
-dist=max(dist2centers);
-grid2=grids;
-grid2(grids<dist)=0;
-c=bar3(diag(dist2centers));
-hold on;
-b=bar3(grid2);
-
-for k = 1:length(b)
-    zdata = b(k).ZData;
-    b(k).CData = zdata;
-    b(k).FaceColor = 'interp';
-end
-for k = 1:length(c)
-    if max(c(k).ZData(:))>0
-        c(k).FaceColor = 'yellow';
-    end
-end
-
-fig = gcf;
-ax = fig.CurrentAxes;
-[w, h]=size(grids);
-ax.XLim=[0 w+1];
-ax.YLim=[0 h+1];
-title('distance squares larger than max local radius');
+% %%
+% figure;
+% dist=max(dist2centers);
+% grid2=grids;
+% grid2(grids<dist)=0;
+% c=bar3(diag(dist2centers));
+% hold on;
+% b=bar3(grid2);
+% 
+% for k = 1:length(b)
+%     zdata = b(k).ZData;
+%     b(k).CData = zdata;
+%     b(k).FaceColor = 'interp';
+% end
+% for k = 1:length(c)
+%     if max(c(k).ZData(:))>0
+%         c(k).FaceColor = 'yellow';
+%     end
+% end
+% 
+% fig = gcf;
+% ax = fig.CurrentAxes;
+% [w, h]=size(grids);
+% ax.XLim=[0 w+1];
+% ax.YLim=[0 h+1];
+% title('distance squares larger than max local radius');
 
 %%
 figure;

@@ -12,9 +12,9 @@ else
 end
 
 [data_features2, featureComponents ]=FilterFeatureComponents(data_features, 1);
+InspectFeatures(data_features2)
 
 issort=true;
-% issort=false;
 
 [ centers,  dist2centers, dist2classes, grids, ind ] = SpecialAnalysis( data_features2, issort );
 
