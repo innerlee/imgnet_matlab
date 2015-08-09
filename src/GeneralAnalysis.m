@@ -14,7 +14,7 @@ figure;
 histogram(dist2centers);
 title('mean dist square to centers');
 
-dist2classes=pdist(centers);
+dist2classes=pdist(centers).^2;
 figure;
 histogram(dist2classes);
 title('dist between classes');
