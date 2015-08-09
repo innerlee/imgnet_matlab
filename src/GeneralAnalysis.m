@@ -10,17 +10,26 @@ tic
 dist2centers=cellfun(@(x) sum(var(x,1)),features);
 toc
 
+dist2classes=pdist(centers).^2;
+grid=squareform(dist2classes)+diag(dist2centers);
+
+say 'drawing...'
+
 figure;
-histogram(dist2centers);
+bar(dist2centers);
+fig = gcf;
+ax = fig.CurrentAxes;
+ax.XLim=[0 length(dist2centers)+1];
 title('mean dist square to centers');
 
-dist2classes=pdist(centers).^2;
 figure;
-histogram(dist2classes);
+bar(dist2classes);
+fig = gcf;
+ax = fig.CurrentAxes;
+ax.XLim=[0 length(dist2classes)+1];
 title('dist between classes');
 
 figure;
-grid=squareform(dist2classes)+diag(dist2centers);
 b=bar3(grid);
 fig = gcf;
 ax = fig.CurrentAxes;
@@ -35,11 +44,13 @@ end
 title('distance squares');
 
 figure;
-bar(dist2centers);
-fig = gcf;
-ax = fig.CurrentAxes;
-ax.XLim=[0 w+1];
-title('mean dist square to centers');
+h=histogram(dist2centers,'Normalization', 'probability');
+h.FaceAlpha = 0.5;
+hold on;
+h=histogram(dist2classes,'Normalization', 'probability');
+h.FaceAlpha = 0.5;
+legend('dist to centers', 'dist between classes');
+title('statistics of distances');
 
 end
 

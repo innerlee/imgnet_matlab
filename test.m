@@ -1,10 +1,10 @@
-if exist('dataloaded','var') && dataloaded
+if exist('newdata','var')
     say 'using existed data. related variables: features, wnids, imgfiles.'
 else
     say 'load data...'
     tic
-    [ features, wnids, imgfiles ]=LoadFeatures(5);
-    dataloaded=true;
+    [ features, wnids, imgfiles ]=LoadFeatures();
+    newdata=true;
     toc
     say 'load finished.'
 end
