@@ -5,17 +5,18 @@ if exist('newdata','var')
 else
     say 'load data...'
     tic
-    [ features, wnids, imgfiles ]=LoadFeatures();
+    [ data_features, data_wnids, data_imgfiles ]=LoadFeatures();
     newdata=true;
     toc
     say 'load finished.'
 end
 
 issort=true;
+% issort=false;
 
-[ centers,  dist2centers, dist2classes, grids, ind ] = GeneralAnalysis( features, issort );
+[ centers,  dist2centers, dist2classes, grids, ind ] = GeneralAnalysis( data_features, issort );
 
-if issort
-    wnids=wnids(ind);
-    imgfiles=imgfiles(ind);
-end
+features=data_features(ind);
+wnids=data_wnids(ind);
+imgfiles=data_imgfiles(ind);
+

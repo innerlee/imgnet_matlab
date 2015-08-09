@@ -10,10 +10,11 @@ tic
 dist2centers=cellfun(@(x) sum(var(x,1)),features);
 toc
 
-ind=[];
 if nargin ==2 && issort
     [dist2centers, ind]=sort(dist2centers);
     centers=centers(ind,:);
+else
+    ind=1:length(dist2centers);
 end
 
 dist2classes=pdist(centers).^2;
@@ -55,7 +56,7 @@ title('distance squares');
 
 %%
 figure;
-dist=mean(dist2centers);
+dist=max(dist2centers);
 grid2=grids;
 grid2(grids<dist)=0;
 c=bar3(diag(dist2centers));
@@ -78,7 +79,7 @@ ax = fig.CurrentAxes;
 [w, h]=size(grids);
 ax.XLim=[0 w+1];
 ax.YLim=[0 h+1];
-title('distance squares larger than average');
+title('distance squares larger than max local radius');
 
 %%
 figure;
