@@ -12,7 +12,6 @@ else
 end
 
 issort=true;
-% issort=false;
 
 [ centers,  dist2centers, dist2classes, grids, ind ] = GeneralAnalysis( data_features, issort );
 
