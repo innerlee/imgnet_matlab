@@ -1,4 +1,4 @@
-function [ centers,  dist2centers, dist2classes, grids, ind ] = SpecialAnalysis( features, issort )
+function [ centers,  dist2centers, dist2classes, grids, ind, featureComponents ] = SpecialAnalysis( features, issort )
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -9,10 +9,12 @@ say2 'compute dist to centers'
 tic
 dist2centers=cellfun(@(x) sum(var(x,1)),features);
 toc
+featureComponents=cell2mat(cellfun(@(x) var(x,1),features,'UniformOutput', false)');
 
 if nargin ==2 && issort
     [dist2centers, ind]=sort(dist2centers);
     centers=centers(ind,:);
+    featureComponents=featureComponents(ind,:);
 else
     ind=1:length(dist2centers);
 end

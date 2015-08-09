@@ -25,7 +25,7 @@ r3=4;
 
 features{totsets}=0;
 wnids{totsets}=0;
-imgfiles=[];
+imgfiles{totsets}=0;
 
 [X,Y] = pol2cart(2*pi*rand(N,1), r1+ (rand(N,1)-.5));
 
