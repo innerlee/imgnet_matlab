@@ -1,4 +1,10 @@
+wnid='n01806847';
+
 baseId=55;
+
+if ~strcmp(wnid,'')
+    baseId=id2no(wnid,wnids);
+end
 
 tempgrid=triu(grids)+tril(grids);
 
