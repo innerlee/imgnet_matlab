@@ -32,3 +32,4 @@ no_dims=3;
 methods={'PCA'}; 
 dimensionReduction(featureComponents, labels, no_dims, methods)
 
+test_tree
