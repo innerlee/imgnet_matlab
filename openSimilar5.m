@@ -1,6 +1,6 @@
-wnid='n01806847';
+wnid='';
 
-baseId=55;
+baseId=97;
 
 if ~strcmp(wnid,'')
     baseId=id2no(wnid,wnids);

@@ -1,4 +1,4 @@
-function [ features, wnids, imgfiles ] = LoadFeatures( maxnum )
+function [ features, wnids, imgfiles, labeldic ] = LoadFeatures( maxnum )
 %LoadFeatures Load imagenet fetures from .txt files in a folder.
 %
 %  Inputs:
@@ -21,6 +21,11 @@ if nargin==0
 end
 
 path='D:\imagenet_features_1024_dims\imagenet_features\';
+wordpath='D:\imgnetimg\batch1\0806141731-synsetsBrief2.txt';
+fileID = fopen(wordpath);
+labelwords = textscan(fileID,'%s %s','Delimiter','\t');
+fclose(fileID);
+labeldic = containers.Map(labelwords{1}, labelwords{2});
 
 all_files=dir(path);
 all_names={all_files.name};

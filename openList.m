@@ -1,4 +1,4 @@
-openlist=[3];
+openlist=[43 28 ];
 
 
 for i=1:length(openlist)
