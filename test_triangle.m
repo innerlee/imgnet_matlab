@@ -1,2 +1,2 @@
-trilist= [73 8 84];
+trilist= [73 4];
 triangle(trilist , sqrt(grids+diag(dist2centers)) ,labels(trilist));

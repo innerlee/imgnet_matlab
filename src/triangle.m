@@ -1,6 +1,31 @@
 function [  ] = triangle( index, dists, labels )
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
+% 
+% cc= distinguishable_colors(8);
+% colors{1}=cc(5,:);
+% colors{2}=cc(6,:);
+% colors{3}=cc(7,:);
+% colors{4}=cc(8,:);
+% 
+% d=dists(index,index);
+% figure;
+% axis off;
+% axis equal
+% hold on;
+% x=[];
+% y=[];
+% z=[];
+% 
+% switch length(index)
+%    case 1
+%       drawCircle(x,y,diag(d),colors(1));
+%       scatter(x,y,'MarkerEdgeColor','k', 'MarkerFaceColor',[0 .75 .75])
+%    case 2
+%       statements
+%    case 3
+% 
+% end
 
 if length(index)>=2
     d=dists(index(1),index(2));
@@ -13,9 +38,7 @@ if length(index)>=2
 
     figure;
     title([labels{1} ' &' labels{2}]);
-    axis off;
-    axis equal
-    hold on;
+    
     set(gcf,'color','w');
     drawCircle(x(1),y(1),r1,'r');
     drawCircle(x(2),y(2),r2,'b');

@@ -1,6 +1,6 @@
 wnid='';
 
-baseId=30;
+baseId=16;
 
 if ~strcmp(wnid,'')
     baseId=id2no(wnid,wnids);

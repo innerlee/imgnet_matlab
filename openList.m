@@ -1,4 +1,4 @@
-openlist=[14 62 44];
+openlist=[53 34 70];
 
 
 for i=1:length(openlist)
