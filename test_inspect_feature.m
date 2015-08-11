@@ -26,10 +26,14 @@ labelno=arrayfun(@num2str,(1:size(featureComponents,1)), 'UniformOutput' ,false)
 labelwords=cellfun(@(x) labeldic(x), wnids, 'UniformOutput' ,false);
 labels=strcat({'  '}, labelno, {' '}, labelwords);
 % available methods:
-% PCA, KernelPCA, MDS, NCA, Sammon, Isomap, LLE, LTSA, tSNE, SymSNE, SNE,
+% *PCA, KernelPCA, MDS, NCA, Sammon, *Isomap, LLE, LTSA, tSNE, SymSNE, SNE,
 % DiffusionMaps, HessianLLE, LandmarkIsomap
+no_dims=2;
+methods={'LLE'}; 
+dimensionReduction(featureComponents, labels, no_dims, methods)
+
 no_dims=3;
-methods={'PCA'}; 
+methods={'LLE'}; 
 dimensionReduction(featureComponents, labels, no_dims, methods)
 
 test_tree

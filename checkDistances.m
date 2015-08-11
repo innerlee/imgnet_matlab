@@ -6,7 +6,7 @@ dataloaded=true;
 toc
 say 'load finished.'
 
-[ centers,  dist2centers, dist2classes, grid ] = GeneralAnalysis( features, false );
+[ centers,  dist2centers, dist2classes, grids ] = GeneralAnalysis( features, false );
 
 figure;
 hold on;

@@ -12,7 +12,5 @@ x = x';
 y = y';
 name1 = cellstr(num2str((1:count)'));
 text(x(:,1), y(:,1), labelset, 'VerticalAlignment','middle','HorizontalAlignment','right','rotation',36,'Color',[.1 .1 .1],'FontSize',8)
-axis off
-set(gcf,'color','w');
-set(gca,'position',[0.01,0.05,.98,.9]);
+noaxis
 title('tree of synsets');
