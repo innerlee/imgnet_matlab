@@ -1,5 +1,5 @@
 %clear newdata;
-
+addPaths;
 if exist('newdata','var')
     say 'using existed data. related variables: features, wnids, imgfiles.'
 else
