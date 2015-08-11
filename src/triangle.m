@@ -17,7 +17,7 @@ labelsr=strcat(labels(1:N), {', r='}, lab1);
 
 figure;
 axis equal
-noaxis;
+
 hold on;
 x=[];
 y=[];
@@ -31,6 +31,7 @@ switch N
        drawCircle(x,y,r(1),colors(1));
        scatter(x,y,'MarkerEdgeColor','k', 'MarkerFaceColor',[0 .75 .75]);
        text(x,y,labelsr(1),'Color',[.8,.2,.2],'FontSize',10);
+       noaxis;
        title([labels{1}]);
    case 2
        x(1)=0;
@@ -41,6 +42,7 @@ switch N
        drawCircle(x,y,r(1:2),colors(1:2));
        scatter(x,y,'MarkerEdgeColor','k', 'MarkerFaceColor',[0 .75 .75]);
        text(x,y,labelsr(1:2),'Color',[.8,.2,.2],'FontSize',10);
+       noaxis;
        title([labels{1} ' &' labels{2}]);
    case 3
        x(1)=0;
@@ -53,6 +55,7 @@ switch N
        drawCircle(x,y,r(1:3),colors(1:3));
        scatter(x,y,'MarkerEdgeColor','k', 'MarkerFaceColor',[0 .75 .75]);
        text(x,y,labelsr(1:3),'Color',[.8,.2,.2],'FontSize',10);
+       noaxis;
        title([labels{1} ' &' labels{2} ' &' labels{3}]);
     case 4
        x(1)=0;
@@ -74,11 +77,12 @@ switch N
        
        drawSphere(x,y,z,r(1:4),colors(1:4));
        scatter3(x,y,z,'MarkerEdgeColor','k', 'MarkerFaceColor',[0 .75 .75]);
+       view([1 1 1]);
        text(x,y,z,labelsr(1:4),'Color',[.8,.2,.2],'FontSize',10);
        title([labels{1} ' &' labels{2} ' &' labels{3} ' &' labels{4}]);
        p=[1 2 3 4 1 3 2 4];
        line(x(p),y(p),z(p),'Color','r','LineWidth',1.6)
-     
+       grid on
 end
 
 

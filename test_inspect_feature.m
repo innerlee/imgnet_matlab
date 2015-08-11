@@ -29,12 +29,12 @@ labels=strcat({'  '}, labelno, {' '}, labelwords);
 % *PCA, KernelPCA, MDS, NCA, Sammon, *Isomap, LLE, LTSA, tSNE, SymSNE, SNE,
 % DiffusionMaps, HessianLLE, LandmarkIsomap
 no_dims=2;
-methods={'LLE'}; 
+methods={'PCA'}; 
 dimensionReduction(featureComponents, labels, no_dims, methods)
 
-no_dims=3;
-methods={'LLE'}; 
-dimensionReduction(featureComponents, labels, no_dims, methods)
+% no_dims=3;
+% methods={'PCA'}; 
+% dimensionReduction(featureComponents, labels, no_dims, methods)
 
 test_tree
 
