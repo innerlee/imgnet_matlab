@@ -7,10 +7,14 @@ labelset=strcat(labelset, labelno, {' '});
 figure;
 treeplot(treeVec);
 count = size(treeVec,2);
-[x,y,h,s] = treelayout(treeVec);
+[x,y] = treelayout(treeVec);
 x = x';
 y = y';
 name1 = cellstr(num2str((1:count)'));
-text(x(:,1), y(:,1), labelset, 'VerticalAlignment','middle','HorizontalAlignment','right','rotation',36,'Color',[.1 .1 .1],'FontSize',8)
+rot=(y-min(y))/(max(y)-min(y));
+ang=40*(1-rot);
+for i=1:length(rot)
+    text(x(i,1), y(i,1), labelset(i), 'VerticalAlignment','middle','HorizontalAlignment','right','rotation',ang(i),'Color',[.1 .1 .1],'FontSize',8)
+end
 noaxis
 title('tree of synsets');

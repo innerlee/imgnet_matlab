@@ -37,4 +37,5 @@ methods={'LLE'};
 dimensionReduction(featureComponents, labels, no_dims, methods)
 
 test_tree
-drawCircle(1);
+
+test_triangle
