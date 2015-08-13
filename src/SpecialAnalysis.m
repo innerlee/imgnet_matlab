@@ -1,4 +1,4 @@
-function [ centers,  dist2centers, dist2classes, grids, in d, featureComponents ] = SpecialAnalysis( features, issort )
+function [ centers,  dist2centers, dist2classes, grids, ind, featureComponents ] = SpecialAnalysis( features, issort )
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
