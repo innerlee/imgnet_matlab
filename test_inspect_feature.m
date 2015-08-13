@@ -30,12 +30,12 @@ labels=strcat({'  '}, labelno, {' '}, labelwords);
 % DiffusionMaps, HessianLLE, LandmarkIsomap
 no_dims=2;
 methods={'PCA'}; 
-dimensionReduction(featureComponents, labels, no_dims, methods)
+dimensionReduction(featureComponents, labels, no_dims, methods);
 
 % no_dims=3;
 % methods={'PCA'}; 
 % dimensionReduction(featureComponents, labels, no_dims, methods)
 
-test_tree
+test_tree;
 
-test_triangle
+test_triangle;
