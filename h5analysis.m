@@ -36,14 +36,24 @@ for i=1:Mh5
 end
 
 figure;
-histogram(ratios,10,'Normalization', 'probability');
-
+histogram(ratios,'Normalization', 'probability');
+title([int2str(Mh5) 'seeds']);
 clusternums=cellfun(@(x) size(x,1),clusterlabels);
 
 figure;
 %plot(clusternums(2:end));
 uniqueclusternums=unique(clusternums);
 %countElA=histc(clusternums,uniqueclusternums);
-histogram(clusternums(2:end),size(uniqueclusternums,2)-1);
+histogram(clusternums,size(uniqueclusternums,2));
+title([int2str(Mh5) ' seeds']);
 %histogram(clusternums(clusternums>0),individual(clusternums));
 %predata=h5read('data/0813164809-features.h5','/features')';
+
+clusterindex0=h5label==0;
+testdata=cell2mat(data_features');
+pts0=testdata(clusterindex0,:);
+
+center0=mean(pts0);
+
+dist2centers0=sqrt(sum(var(pts0,1)));
+dist2centersall=sqrt(sum(var(testdata,1)));
