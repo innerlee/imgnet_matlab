@@ -1,4 +1,4 @@
-clusterno=3;
+clusterno=300;
 
 rootpath='D:\imgnetimg\batch1\';
 N=length(data_wnids);

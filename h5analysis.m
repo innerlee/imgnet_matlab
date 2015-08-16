@@ -1,11 +1,15 @@
+function []= h5analysis(folder,file,data_features)
+
 %file='D:\imagenet_features_1024_dims\imagenet_100k_aug_12_out.h5';
-file='D:\imagenet_features_1024_dims\imagenet_100k_aug_13_out.1k.h5';
+if isempty(file) || isempty(folder)
+    file='D:\imagenet_features_1024_dims\rand-out\imagenet_100k_aug_14_out.rand.2.100.h5';
+end
 
-h5info(file);
-
-h5center=h5read(file,'/center')';
-h5label=double(h5read(file,'/label'));
+h5center=h5read([folder file],'/center')';
+h5label=double(h5read([folder file],'/label'));
+% number of imgs
 Nh5=size(h5label,1);
+% number of centers
 Mh5=size(h5center,1);
 
 labelcell=cellfun(@(x) zeros(size(x,1),1),data_features,'UniformOutput',false);
@@ -13,7 +17,6 @@ for i=1:length(labelcell)
     labelcell{i}=double(labelcell{i}+i);
 end
 trainlabel=cell2mat(labelcell');
-%trainlabel=cell2mat((cellfun(@(x) x(1:(min(floor(size(x,1)*train_percent),size(x,1))),:),  labelcell,'UniformOutput',false))');
 orilabel=trainlabel(1:Nh5);
 
 clusterlabels{Mh5}=[];
@@ -30,30 +33,38 @@ ratios(Mh5)=0;
 
 for i=1:Mh5
     ratios(i)=sum(clusterlabels{i}==mode(clusterlabels{i}))/size(clusterlabels{i},1);
-%     figure;
-%     h=histogram(clusterlabels{i},100,'Normalization', 'probability');
-%     ratios(i)=max(h.Values);
 end
 
 figure;
-histogram(ratios,'Normalization', 'probability');
-title([int2str(Mh5) 'seeds']);
-clusternums=cellfun(@(x) size(x,1),clusterlabels);
+histogram(ratios,[0:.1:1],'Normalization', 'probability');
+title([int2str(Mh5) ' seeds']);
+print([folder file '.1.png'],'-dpng')
+%savefig();
 
 figure;
-%plot(clusternums(2:end));
+clusternums=cellfun(@(x) size(x,1),clusterlabels);
 uniqueclusternums=unique(clusternums);
-%countElA=histc(clusternums,uniqueclusternums);
 histogram(clusternums,size(uniqueclusternums,2));
 title([int2str(Mh5) ' seeds']);
+print([folder file '.2.png'],'-dpng')
+
+figure;
+aa=sort(ratios,'descend');
+plot(aa);
+title([int2str(Mh5) ' seeds']);
+print([folder file '.3.png'],'-dpng')
+%savefig([folder file '.2.fig']);
 %histogram(clusternums(clusternums>0),individual(clusternums));
 %predata=h5read('data/0813164809-features.h5','/features')';
 
-clusterindex0=h5label==0;
-testdata=cell2mat(data_features');
-pts0=testdata(clusterindex0,:);
 
-center0=mean(pts0);
+% dist2centers_kmeans(Mh5)=0;
+% for i=1:Mh5
+%     clusterindex0=h5label==i-1;
+%     testdata=cell2mat(data_features');
+%     pts0=testdata(clusterindex0,:);
+% 
+%     dist2centers_kmeans(i)=sqrt(sum(var(pts0,1)));
+% end
 
-dist2centers0=sqrt(sum(var(pts0,1)));
-dist2centersall=sqrt(sum(var(testdata,1)));
+end
