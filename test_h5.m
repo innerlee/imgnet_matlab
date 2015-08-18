@@ -1,4 +1,5 @@
 folder='D:\imagenet_features_1024_dims\seed-out\';
+folder='data/';
 all_files=dir(folder);
 all_names={all_files.name};
 all_bits=[all_files.isdir];

@@ -7,6 +7,13 @@ end
 
 h5center=h5read([folder file],'/center')';
 h5label=double(h5read([folder file],'/label'));
+
+% %temp analysis
+% h5center=centers;
+% h5label=belongs';
+% folder='data/';
+% file='ofl';
+
 % number of imgs
 Nh5=size(h5label,1);
 % number of centers
@@ -38,7 +45,9 @@ end
 figure;
 histogram(ratios,[0:.1:1],'Normalization', 'probability');
 title([int2str(Mh5) ' seeds']);
-print([folder file '.1.png'],'-dpng')
+xlabel('purity');
+ylabel('ratio');
+print([folder file '.purityratio.png'],'-dpng')
 %savefig();
 
 figure;
@@ -46,19 +55,37 @@ clusternums=cellfun(@(x) size(x,1),clusterlabels);
 uniqueclusternums=unique(clusternums);
 histogram(clusternums,size(uniqueclusternums,2));
 title([int2str(Mh5) ' seeds']);
-print([folder file '.2.png'],'-dpng')
+print([folder file '.numstat.png'],'-dpng')
 
 figure;
 aa=sort(ratios,'descend');
 plot(aa);
+xlabel('instances');
+ylabel('purity');
 title([int2str(Mh5) ' seeds']);
-print([folder file '.3.png'],'-dpng')
-%savefig([folder file '.2.fig']);
-%histogram(clusternums(clusternums>0),individual(clusternums));
-%predata=h5read('data/0813164809-features.h5','/features')';
+print([folder file '.dropdown.png'],'-dpng')
 
+dist2centers_kmeans(Mh5)=0;
+testdata=cell2mat(data_features');
+%parpool(10)
+for i=1:Mh5
+    pts0=testdata((h5label==i-1),:);
+    %dist2centers_kmeans(i)=sqrt(sum(var(pts0,1)));
+    dist2centers_kmeans(i)=sum(var(pts0,1));
+    %fprintf([int2str(i) '\n']);
+end
 
-% dist2centers_kmeans(Mh5)=0;
+figure;
+hold on;
+much=50;
+scatter(dist2centers_kmeans(clusternums<much),ratios(clusternums<much));
+scatter(dist2centers_kmeans(clusternums>=much),ratios(clusternums>=much),[],'r');
+xlabel('mean radius squared')
+ylabel('purity');
+legend('num<50','num>=50');
+title([int2str(Mh5) ' seeds']);
+print([folder file '.radius.png'],'-dpng')
+
 % for i=1:Mh5
 %     clusterindex0=h5label==i-1;
 %     testdata=cell2mat(data_features');
